@@ -1,1 +1,2 @@
-# CustomerSupportAssistant_RAG_Challenge
+# Celonis_Interview
+RAG Implementation

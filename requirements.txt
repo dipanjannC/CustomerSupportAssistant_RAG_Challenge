@@ -1,0 +1,8 @@
+accelerate-1.6.0
+chromadb==1.0.5
+datasets==3.5.0
+langchain==0.3.23
+python-dotenv==1.1.0
+# transformers==4.51.3
+# bitsandbytes==0.42.0
+evidently
