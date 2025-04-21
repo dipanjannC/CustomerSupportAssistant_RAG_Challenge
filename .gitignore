@@ -1,4 +1,4 @@
 data/db
 data/raw
 venv
-**.DS_Store
+*.DS_Store
