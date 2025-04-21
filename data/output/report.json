@@ -1,0 +1,116 @@
+{
+    "metrics": [
+        {
+            "id": "00404ffe284d7862baa4095093452630",
+            "metric_id": "RowCount()",
+            "value": 945278.0
+        },
+        {
+            "id": "17664462c93019ce60a049b18d8ff02c",
+            "metric_id": "MissingValueCount(column=Sentiment)",
+            "value": {
+                "count": 0.0,
+                "share": 0.0
+            }
+        },
+        {
+            "id": "286ff727167c520ae70cf42ded855d86",
+            "metric_id": "MinValue(column=Sentiment)",
+            "value": -0.9709
+        },
+        {
+            "id": "eb52a89d3d3f7167d75f6648501b6e7a",
+            "metric_id": "MaxValue(column=Sentiment)",
+            "value": 0.9957
+        },
+        {
+            "id": "75de93ee119b3110e8fd1b1485b79749",
+            "metric_id": "MeanValue(column=Sentiment)",
+            "value": 0.32405722337767295
+        },
+        {
+            "id": "bfcd92322dc95e06917cc9124b0ce364",
+            "metric_id": "StdValue(column=Sentiment)",
+            "value": 0.3904653472304494
+        },
+        {
+            "id": "de4d35f4a65ffe9824e23d38d18bd3b4",
+            "metric_id": "QuantileValue(column=Sentiment,quantile=0.25)",
+            "value": 0.0
+        },
+        {
+            "id": "65457b8fa7cbd2e2df92ee1d3b736a9f",
+            "metric_id": "QuantileValue(column=Sentiment,quantile=0.5)",
+            "value": 0.3818
+        },
+        {
+            "id": "1fc7401de64f2f18874de98280b453bc",
+            "metric_id": "QuantileValue(column=Sentiment,quantile=0.75)",
+            "value": 0.6486
+        },
+        {
+            "id": "6d239e0aeed393f454f54daab63282ac",
+            "metric_id": "MissingValueCount(column=Length)",
+            "value": {
+                "count": 0.0,
+                "share": 0.0
+            }
+        },
+        {
+            "id": "2c511a34064056e02cefb9c4be08ce23",
+            "metric_id": "MinValue(column=Length)",
+            "value": 0.0
+        },
+        {
+            "id": "a26586f04d3a3f906af69f860799d6ce",
+            "metric_id": "MaxValue(column=Length)",
+            "value": 294.0
+        },
+        {
+            "id": "dd484d73e687b1b10a530fdf9fbe491f",
+            "metric_id": "MeanValue(column=Length)",
+            "value": 100.46405819240478
+        },
+        {
+            "id": "09ae2f08c50f962911c5f786e4d733cf",
+            "metric_id": "StdValue(column=Length)",
+            "value": 44.16851605308784
+        },
+        {
+            "id": "4d835fe32b84e16fda7648d2b33fb248",
+            "metric_id": "QuantileValue(column=Length,quantile=0.25)",
+            "value": 72.0
+        },
+        {
+            "id": "b20916af1e8c947d0b9cf5f462f001db",
+            "metric_id": "QuantileValue(column=Length,quantile=0.5)",
+            "value": 98.0
+        },
+        {
+            "id": "3860b81db101de9e52c2c3c83949c70e",
+            "metric_id": "QuantileValue(column=Length,quantile=0.75)",
+            "value": 122.0
+        },
+        {
+            "id": "a4d899905353c862d6bc69ce7405990e",
+            "metric_id": "MissingValueCount(column=Denials)",
+            "value": {
+                "count": 0.0,
+                "share": 0.0
+            }
+        },
+        {
+            "id": "90485325b5e97efda988013c1fc2faf0",
+            "metric_id": "UniqueValueCount(column=Denials)",
+            "value": {
+                "counts": {
+                    "1": 945278.0
+                },
+                "shares": {
+                    "1": 1.0
+                }
+            }
+        }
+    ],
+    "tests": []
+}
