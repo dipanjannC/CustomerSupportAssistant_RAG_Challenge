@@ -6,14 +6,13 @@ from tqdm import tqdm
 import uuid
 from typing import List, Dict, Any, Optional
 
-
+from config.vectorstore_config import DEFAULT_DB_PATH
 from src.backend.config.logger_config import setup_logging
 from src.backend.utilities.code_util import project_root
 from src.backend.preprocess.vectorstore_processing import process_documents
 from src.backend.embedder import SentenceTransformerEmbeddings
 
 logger = setup_logging()
-DEFAULT_DB_PATH = os.path.join(project_root, "data", "db")
 
 class Vectorstore:
     """
@@ -235,6 +234,8 @@ class Vectorstore:
             # Cache the results
             if use_cache:
                 self.cache[cache_key] = results
+            
+            results = self.parse_results(results)
                 
             return results
             
@@ -402,8 +403,6 @@ if __name__ == "__main__":
     for query in test_queries:
         logger.info(f"\nQuery: {query}")
         results = vectorstore.query(query, top_k=3)
-        results = vectorstore.parse_results(results)
-        
         logger.info(f"Results: {results}")
     
     # Display collection stats

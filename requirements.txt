@@ -1,8 +1,11 @@
-accelerate-1.6.0
 chromadb==1.0.5
+colorama==0.4.6
 datasets==3.5.0
 langchain==0.3.23
+langchain-mistralai==0.2.10
+langchain_groq==0.3.2
 python-dotenv==1.1.0
 # transformers==4.51.3
 # bitsandbytes==0.42.0
 evidently
+sentence_transformers==4.1.0
