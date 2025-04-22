@@ -1,0 +1,3 @@
+docker image pull arizephoenix/phoenix:latest
+
+docker run -d --name phoenix -p 6006:6006 arizephoenix/phoenix:latest

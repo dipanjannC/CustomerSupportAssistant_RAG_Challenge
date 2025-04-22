@@ -1,0 +1,4 @@
+"I ordered a laptop, but it arrived with a broken screen. What should I do?" 
+"I need help resetting my password." (Follow-up) "I didn’t receive the reset link." 
+"My cat chewed my phone charger. Is this covered under warranty?" 
+"Why did you suggest contacting support?" (Checks explainability!)
