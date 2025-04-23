@@ -2,9 +2,11 @@
 from pathlib import Path
 from functools import wraps
 import time
-import os
-from colorama import Fore, Style, init
+from typing import Any
+import json
 from rich import print
+
+
 
 project_root = Path(__file__).resolve().parents[3]
 
@@ -22,3 +24,13 @@ def execution_time(func):
         return result  # Return the result of the original function
 
     return wrapper
+
+def json_serializable(item: Any) -> Any:
+    """Convert any non-JSON serializable objects to strings."""
+    try:
+        # Test if the item is JSON serializable
+        json.dumps(item)
+        return item
+    except (TypeError, OverflowError):
+        # If not serializable, convert to string
+        return str(item)

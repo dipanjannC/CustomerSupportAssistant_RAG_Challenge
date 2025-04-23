@@ -5,12 +5,17 @@ import os
 from tqdm import tqdm
 import uuid
 from typing import List, Dict, Any, Optional
+import json
 
 from config.vectorstore_config import DEFAULT_DB_PATH
 from src.backend.config.logger_config import setup_logging
-from src.backend.utilities.code_util import project_root
+from src.backend.utilities.code_util import project_root,json_serializable
 from src.backend.preprocess.vectorstore_processing import process_documents
 from src.backend.embedder import SentenceTransformerEmbeddings
+from src.backend.config.phoenix_config import tracer_provider, tracer
+
+from openinference.semconv.trace import SpanAttributes
+from opentelemetry.trace import Status, StatusCode
 
 logger = setup_logging()
 
@@ -51,7 +56,7 @@ class Vectorstore:
             self.client = chromadb.PersistentClient(
                 path=persistent_db_path,
                 # For accessing telemetry data for observability  
-                settings=Settings(anonymized_telemetry=True)
+                settings=Settings(anonymized_telemetry=False)
             )
             logger.info(f"Connected to ChromaDB at {persistent_db_path}")
 
@@ -93,6 +98,7 @@ class Vectorstore:
             logger.error(f"Error setting up collection: {str(e)}")
             raise
     
+    @tracer.chain
     def create_new_collection(self) -> None:
         """Create a new vectorstore collection with custom settings."""
 
@@ -114,6 +120,8 @@ class Vectorstore:
             }
         )
 
+    
+    @tracer.chain(name = "vectorstore_add_documents")
     def add_documents(self, 
                     documents: List[str], 
                     metadata: Optional[List[dict]] = None, 
@@ -192,6 +200,7 @@ class Vectorstore:
         return  True
 
 
+    @tracer.chain(name="retriever")
     def query(self,
               query: str, 
               top_k: int = 5, 
@@ -209,6 +218,9 @@ class Vectorstore:
         Returns:
             Dict[str, Any]: Query results
         """
+
+        
+
         if not query:
             return {"documents": [], "distances": [], "metadatas": [], "ids": []}
             
@@ -234,13 +246,15 @@ class Vectorstore:
             # Cache the results
             if use_cache:
                 self.cache[cache_key] = results
-            
+        
+            # Parse results
             results = self.parse_results(results)
-                
+            
             return results
             
         except Exception as e:
             logger.error(f"Error querying collection: {str(e)}")
+            # span.record_exception(e)
             return {"documents": [], "distances": [], "metadatas": [], "ids": []}
         
     
@@ -263,8 +277,9 @@ class Vectorstore:
         }
         return stats
 
+    @tracer.chain
     @staticmethod
-    def parse_results(results: Dict[str, Any],normalize:bool = False) -> List[Dict[str, Any]]:
+    def parse_results(results: Dict[str, Any],normalize:bool = False) -> Dict[str, Any]:
         """
         Transforms the 'results' dictionary into a list of readable dictionaries.
         Each dictionary contains the document ID, text, metadata, and similarity score.
@@ -279,7 +294,7 @@ class Vectorstore:
         metadatas = results.get("metadatas", [[]])[0]
         distances = results.get("distances", [[]])[0]
 
-        results = []
+        results = {}
 
         for doc_id, doc, meta, dist in zip(ids, documents, metadatas, distances):
 
@@ -294,15 +309,15 @@ class Vectorstore:
                 sim = round(norm_sim, 4)
             else:
                 sim = round(raw_sim, 4)
-
-            results.append({
+            
+            results[doc_id] = {
                 "id": doc_id,
                 "document": doc,
                 "metadata": meta,
                 "similarity": sim,
                 "distance": round(dist, 4)
-            })
-
+            }
+        
         return results
 
 
@@ -395,8 +410,8 @@ if __name__ == "__main__":
     # Test querying
     test_queries = [
         "What is the status of my order?",
-        "How can I reset my password?",
-        "I need a refund for my purchase"
+        # "How can I reset my password?",
+        # "I need a refund for my purchase"
     ]
     
     logger.info("Testing queries:")

@@ -33,9 +33,10 @@ You should:
   minimal info needed to assist.
 """
         self.RETRIEVER_PROMPT = """
-You will be provided with a list of relevant support ticket snippets (retrieved documents). 
+You will be provided with a list of retrieved documents that are relevant to the users question.
 When forming your answer, explicitly cite these by prefacing with “Based on our records…” 
 and weave the fetched details into your solution.
+{context}
 
 """
         self.USER_PROMPT ="""

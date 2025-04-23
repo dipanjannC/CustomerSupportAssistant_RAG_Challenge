@@ -20,7 +20,7 @@ llm = LLMChatbot().get_mistral(model_name="ministral-8b-latest")
 evaluator_llm = LangchainLLMWrapper(llm)
 
 
-async def evaluate_factual_correctness():
+async def evaluate_factual_correctness(evaluator_llm):
     metric = FactualCorrectness(llm=evaluator_llm)
     result = await metric.single_turn_ascore(sample)
     print(f"Factual Correctness score: {result}")
@@ -37,6 +37,9 @@ async def evaluate_contextual_precision():
     result = await metric.single_turn_ascore(sample)
     print(f"Evaluate Contextual Score: {result}")
     return result
+
+#TODO:
+#TOXICITY
 
 # Run the evaluation
 if __name__ == "__main__":

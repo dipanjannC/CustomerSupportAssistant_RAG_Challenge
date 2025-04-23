@@ -1,50 +1,76 @@
 
 
 from ragas.dataset_schema import SingleTurnSample
-from ragas.metrics import BleuScore,RougeScore,ExactMatch,StringPresence
+from ragas.metrics import BleuScore,RougeScore
 
-# Wrap your sample
-sample = SingleTurnSample(
-    user_input="translate to French: Hello, world!",
-    response="Bonjour, le monde!",
-    reference="Bonjour le monde!"
-)
-
-metric = BleuScore()  # non‑LLM n‑gram precision + brevity penalty :contentReference[oaicite:1]{index=1}
-result = metric.single_turn_score(sample)
-print("BLEU:", result)  # e.g. 0.840 …
+from ragas.metrics import NonLLMContextRecall
 
 
+class NonLLMMetricsEvaluator:
+    def __init__(self):
+        self.BLEU_METRIC = BleuScore()  
+        self.ROUGEL_METRIC = RougeScore(rouge_type="rougeL")  
+        self.NONLLM_CONTEXT_METRIC = NonLLMContextRecall()
+    
+    def get_bleu_score(self,sample: SingleTurnSample)->float:   
+        """
+        Calculate the BLEU score for a given sample.
+        """
+        # Important Metric as it used to understand recall of LLM generated
+        result = self.BLEU_METRIC.single_turn_score(sample)
+        return result
+    
+    def get_rouge_score(self,sample: SingleTurnSample)->float:
+        """
+        Calculate the ROUGE-L score for a given sample.
+        """
+        # Important Metric as it used to understand recall of LLM generated
+        result = self.ROUGEL_METRIC.single_turn_score(sample)
+        return result
+    
+    def get_nonllm_context_score(self,sample: SingleTurnSample)->float:
+        """
+        Calculate the Non-LLM Context Recall score for a given sample.
+        """
+        # Important Metric as it used to understand recall of LLM generated
+        result = self.NONLLM_CONTEXT_METRIC.single_turn_score(sample)
+        return result
+    
+    def get_bert_similarity_score(self,sample: SingleTurnSample)->float:
+        """
+        Calculate the BERT similarity score for a given sample.
+        """
+        # Important Metric as it used to understand recall of LLM generated
+        pass
 
-sample = SingleTurnSample(
-    user_input="summarize: …",
-    response="Key points are A, B, and C.",
-    reference="The summary should cover A, B, and C."
-)
 
-metric = RougeScore(rouge_type="rougeL")  # LCS‑based recall/precision/F1 :contentReference[oaicite:2]{index=2}
-result = metric.single_turn_score(sample)
-print("ROUGE‑L:", result)  # e.g. 0.67
+    def report(self, sample: SingleTurnSample):
+        """
+        Report the scores for a given sample.
+        """
+        bleu_score = self.get_bleu_score(sample)
+        rouge_score = self.get_rouge_score(sample)
+        nonllm_context_score = self.get_nonllm_context_score(sample)
 
-sample = SingleTurnSample(
-    user_input="What is 2 + 2?",
-    response="4",
-    reference="4"
-)
-
-metric = ExactMatch()  # 1.0 if identical, else 0.0 :contentReference[oaicite:3]{index=3}
-result = metric.single_turn_score(sample)
-print("ExactMatch:", result) 
+        print(f"BLEU Score: {bleu_score}")
+        print(f"ROUGE-L Score: {rouge_score}")
+        print(f"Non-LLM Context Recall Score: {nonllm_context_score}")
+        return {
+            "BLEU": bleu_score,
+            "ROUGE-L": rouge_score,
+            "Non-LLM Context Recall": nonllm_context_score
+        }
 
 
+if __name__ == "__main__":
 
-
-# sample = SingleTurnSample(
-#     user_input="paraphrase: The cat sat on the mat.",
-#     response="A cat was sitting on the rug.",
-#     reference="The cat was seated on the rug."
-# )
-
-# metric = BertScore(model_name="microsoft/deberta-xlarge-mnli")  # embedding‑based semantic sim :contentReference[oaicite:5]{index=5}
-# result = metric.single_turn_score(sample)
-# print("BERTScore F1:", result.value)  
+    # Wrap your sample
+    sample = SingleTurnSample(
+        user_input="translate to French: Hello, world!",
+        response="Bonjour, le monde!",
+        reference="Bonjour le monde!"
+    )
+    
+    evaluator = NonLLMMetricsEvaluator()
+    results = evaluator.report(sample)
+    print(results)

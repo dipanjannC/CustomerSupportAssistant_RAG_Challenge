@@ -1,17 +1,25 @@
-# import os
-# from phoenix.otel import register
-# from openinference.instrumentation.langchain import LangChainInstrumentor
+from opentelemetry import trace
+from opentelemetry.sdk import trace as trace_sdk
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace.export import SimpleSpanProcessor,BatchSpanProcessor
+from openinference.instrumentation.langchain import LangChainInstrumentor
 
-# # 1. Export your Phoenix API key
-# os.environ["PHOENIX_API_KEY"] = "YOUR_CLOUD_API_KEY"
+import os
 
-# # 2. Register tracer (detects HTTP vs gRPC, path, and headers)
-# tracer_provider = register(
-#     project_name="customer-support-rag",
-#     endpoint="https://app.phoenix.arize.com/v1/traces",  # full HTTP ingest path :contentReference[oaicite:3]{index=3}
-#     protocol="http/protobuf",                             # enforce HTTP OTLP
-#     verbose=True
-# )
+tracer_provider = trace_sdk.TracerProvider()
+span_exporter = OTLPSpanExporter(
+    endpoint=f"{os.getenv("PHOENIX_COLLECTOR_ENDPOINT")}/v1/traces",
+    headers={
+    "authorization": f"Bearer {os.getenv('PHOENIX_CLIENT_HEADERS')}"}
+)
 
-# # 3. Instrument your RAG/LLM calls
-# LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
+# Attach BatchSpanProcessor
+processor = BatchSpanProcessor(span_exporter)
+tracer_provider.add_span_processor(processor)
+trace.set_tracer_provider(tracer_provider)
+
+# Get a tracer instance
+tracer = trace.get_tracer(__name__)
+# Instrument LangChain
+LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
+

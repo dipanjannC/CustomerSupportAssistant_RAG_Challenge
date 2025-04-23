@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import  Dict,Any
 from src.backend.config.logger_config import setup_logging
 
 
@@ -6,18 +6,18 @@ logger = setup_logging()
 
 class ContextParser:
     @staticmethod
-    def parse_vectorstore_response(response: List[Dict]) -> str:
+    def parse_vectorstore_response(response: Dict[str,Any]) -> str:
         """
         Parses the vectorstore response to create a context string.
 
         Args:
-            chroma_results (list): List of dictionaries containing document data.
+            chroma_results (Dict): List of dictionaries containing document data.
 
         Returns:
             str: A single string containing all documents joined by double newlines.
         """
         # Extract just the document content from each result
-        documents = [result['document'] for result in response]
+        documents = {doc['document'] for doc_id,doc in response.items()}
         
         # Create context by joining the documents
         return "\n\n".join(documents)

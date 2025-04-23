@@ -1,4 +1,5 @@
 arize-phoenix==8.26.0
+arize-phoenix-evals==0.20.6
 chromadb==1.0.6
 colorama==0.4.6
 datasets==3.5.0
@@ -7,9 +8,11 @@ fastapi==0.115.9
 langchain==0.3.23
 langchain-mistralai==0.2.10
 langchain_groq==0.3.2
+mistralai==1.7.0
 openinference-instrumentation-langchain==0.1.41
 python-dotenv==1.1.0
 ragas==0.2.14
+rapidfuzz==3.13.0
 rouge_score==0.1.2
 sacrebleu==2.5.1
 sentence_transformers==4.1.0
