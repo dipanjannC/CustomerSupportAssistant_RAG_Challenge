@@ -1,22 +1,12 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import sqlite3
 from datetime import datetime
 
+from src.backend.schema.api_data_model import QueryRequest
+from src.backend.rag import RAG_base
 # Initialize FastAPI app
 app = FastAPI()
 
-# Database setup
-DB_PATH = "responses.db"
 
-
-# Request model
-class QueryRequest(BaseModel):
-    query: str
-
-# Mock AI response generator
-def generate_ai_response(query: str) -> str:
-    return f"AI response to: {query}"
 
 
 @app.post("/generate_response")
@@ -25,16 +15,8 @@ def generate_response(request: QueryRequest):
     response = generate_ai_response(query)
     timestamp = datetime.now().isoformat()
 
-    # Log interaction in the database
     try:
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO interactions (query, response, timestamp)
-            VALUES (?, ?, ?)
-        """, (query, response, timestamp))
-        conn.commit()
-        conn.close()
+       pass
         
     except Exception as e:
         raise HTTPException(status_code=500, detail="Failed to log interaction")

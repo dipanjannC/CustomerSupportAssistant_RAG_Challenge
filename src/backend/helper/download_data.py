@@ -8,7 +8,7 @@ dataset = load_dataset("MohammadOthman/mo-customer-support-tweets-945k", split="
 # sampled = dataset.select(range(10))
 
 # Save to JSON
-dataset.to_json(os.path.join(project_root,"data/customer_support_dataset_unprocessed.json"), orient="records", lines=True)
+dataset.to_json(os.path.join(project_root,"data/raw/customer_support_dataset_unprocessed.json"), orient="records", lines=True)
 
 
 

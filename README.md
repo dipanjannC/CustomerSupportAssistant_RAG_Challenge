@@ -1,8 +1,8 @@
-# Celonis_Interview
+# Customer Assistant RAG Chatbot
+
 RAG Implementation
 
-
-## Additonal Resources 
+## Additonal Resources
 
 - https://github.com/JShollaj/awesome-llm-interpretability
 - https://www.promptingguide.ai/research/llm-reasoning
@@ -19,6 +19,13 @@ RAG Implementation
 - Research with comparison study.
 - Best practices of pep8 for code quality.
 
+
+# Challanges
+
+
+# Limitations
+
+Supports only English Sentences
 
 # TODO 
 - Docker compose for connecting UI and BACKEND. 

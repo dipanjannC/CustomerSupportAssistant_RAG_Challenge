@@ -1,4 +1,4 @@
-from src.backend.model import MistralAIModel
+# from src.backend.model import MistralAIModel
 from src.backend.llm import LLMChatbot
 from src.backend.config.logger_config import setup_logging
 
@@ -13,8 +13,8 @@ from phoenix.evals import (
     download_benchmark_dataset,
     llm_classify,
 )
-model = LLMChatbot()
-llm = LLMChatbot.get_mistral(model_name="ministral-8b-latest")
+
+llm = LLMChatbot().get_mistral(model_name="ministral-8b-latest")
 
 eval_dataset_path = os.path.join(project_root,"data/eval/binary-relevance-classification.json")
 
@@ -27,7 +27,7 @@ rails = list(RAG_RELEVANCY_PROMPT_RAILS_MAP.values())
 relevance_classifications = llm_classify(
     dataframe=df,
     template=RAG_RELEVANCY_PROMPT_TEMPLATE,
-    model=,
+    model=llm,
     rails=rails,
     provide_explanation=True, #optional to generate explanations for the value produced by the eval LLM
 )

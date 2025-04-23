@@ -7,7 +7,7 @@ import uuid
 from typing import List, Dict, Any, Optional
 import json
 
-from config.vectorstore_config import DEFAULT_DB_PATH
+from src.backend.config.vectorstore_config import DEFAULT_DB_PATH
 from src.backend.config.logger_config import setup_logging
 from src.backend.utilities.code_util import project_root,json_serializable
 from src.backend.preprocess.vectorstore_processing import process_documents
