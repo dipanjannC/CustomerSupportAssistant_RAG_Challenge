@@ -22,7 +22,7 @@ async def main():
     
     query = st.text_input("Enter your query:")
     if st.button("Get Response"):
-        results = await vectorstore.query(query, top_k=5)
+        results = vectorstore.query(query, top_k=5)
         st.write("Results:", results)
 
 if __name__ == "__main__":
