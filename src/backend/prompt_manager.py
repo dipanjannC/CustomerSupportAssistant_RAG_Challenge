@@ -49,13 +49,14 @@ When forming your answer:
   * First analyze the retrieved information and identify the most relevant details.
   * Explicitly cite these by prefacing with "Based on our records…" 
   * Explain how the retrieved information connects to the user's specific situation.
-  * Show your reasoning for why certain retrieved information is applicable to their case.
-  * Weave the fetched details into your solution with clear explanations.
-
 
 {context}
 
 """
+# TODO : Utilize this later 
+#   * Show your reasoning for why certain retrieved information is applicable to their case.
+#   * Weave the fetched details into your solution with clear explanations.
+
 
         self.USER_PROMPT = """
 [INST] Question: {question} [/INST]

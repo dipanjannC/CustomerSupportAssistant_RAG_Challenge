@@ -415,8 +415,10 @@ def get_vectorstore_instance(
 
 if __name__ == "__main__":
 
-    # Process all documents
-    # ingest_documents_to_vectorstore()
+    # Example usage
+    # Double Comments to we don't run the ingesting process again
+    ## Process all documents
+    ## ingest_documents_to_vectorstore()
 
     # # Unit Testing
     # raw_documents_path = os.path.join(project_root, "data", "raw", "raw_customer_support_dataset.json")
