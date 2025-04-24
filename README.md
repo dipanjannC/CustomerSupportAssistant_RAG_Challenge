@@ -77,7 +77,7 @@ set PYTHONPATH=%cd%
 Run the FastAPI backend to expose the chatbot API:
 
 ```bash
-python [app.py](http://_vscodecontentref_/2)
+python src/backend/api/app.py
 ```
 
 The API will be available at http://localhost:8085.
@@ -87,7 +87,7 @@ The API will be available at http://localhost:8085.
 Run the Streamlit application for a user-friendly interface:
 
 ```bash
-streamlit run [streamlit_app.py](http://_vscodecontentref_/3)
+streamlit run src/ui/streamlit_app.py 
 ```
 
 The UI will be available at http://localhost:8501.
