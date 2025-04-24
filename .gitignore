@@ -3,3 +3,4 @@ data/raw
 venv
 *.DS_Store
 __pycache__
+README_draft.md
