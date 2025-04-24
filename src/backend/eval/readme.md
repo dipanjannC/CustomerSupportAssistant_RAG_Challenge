@@ -9,6 +9,7 @@ In future it will check both parts of the system: Retrieval and Generation.
 
 - Uses a language model to evaluate the quality of generated responses.
 - Includes metrics such as factual correctness, relevancy, faithfulness, and context precision.
+- Additional metrics can be created with AspectCritic from ragas library.
 
 This file has the `LLMMetricsEvaluator` class. It checks the model’s answers for:
 
@@ -24,8 +25,9 @@ This file has the `LLMMetricsEvaluator` class. It checks the model’s answers f
 
 This file has the `NonLLMMetricsEvaluator` class. It uses standard NLP scores:
 
-- **BLEU** : Overlap of words between output and reference
-- **ROUGE-L** : How much of the reference is covered by the output  
+- **BLEU** : Overlap of words between output and reference but here as we still finalizing the golden dataset, we have taken the overlap between input(user query) and output(llm generated response)
+- **ROUGE-L** : How much of the reference is covered by the output, here we have taken the same approach like `BLEU`. With experimentations we can finalize to take which combination suits better
+for the use case i.e. (input,output), (retrieved,output), (referenced,output)
 - **METEOR** : Matches words, stems, and synonyms
 - **Cosine Similarity** : How close two text embeddings are
 - **Context Recall** : How many correct contexts were found

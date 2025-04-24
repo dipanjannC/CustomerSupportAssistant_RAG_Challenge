@@ -10,8 +10,8 @@ from src.backend.config.logger_config import setup_logging
 from src.backend.config.phoenix_config import tracer_provider, tracer
 from openinference.semconv.trace import SpanAttributes
 
-logger = setup_logging()
 
+logger = setup_logging()
 
 
 @tracer.start_as_current_span("RAG_Pipeline", attributes={SpanAttributes.OPENINFERENCE_SPAN_KIND: "chain"})
@@ -20,10 +20,15 @@ def RAG_base(query_text: str, retriever: Vectorstore) -> str:
     This function implements a Retrieval-Augmented Generation (RAG) pipeline.
     It retrieves relevant documents from a vectorstore based on the input query,
     and then generates a response using a language model (LLM) with the retrieved context.
+
     Args:
         query_text (str): The input query for which a response is to be generated.
+
     Returns:
         str: The generated response from the LLM.
+
+    Raises:
+        Exception: If there is an error during the retrieval or generation process.
     """
     try:
         # Retriever
