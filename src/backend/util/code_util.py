@@ -7,7 +7,6 @@ import json
 from rich import print
 
 
-
 project_root = Path(__file__).resolve().parents[3]
 
 

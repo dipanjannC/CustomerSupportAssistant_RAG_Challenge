@@ -16,3 +16,4 @@ rapidfuzz==3.13.0
 rouge_score==0.1.2
 sacrebleu==2.5.1
 sentence_transformers==4.1.0
+# sqlite3==3.35.0 #For docker container

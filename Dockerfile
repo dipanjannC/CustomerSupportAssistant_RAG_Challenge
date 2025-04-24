@@ -1,26 +1,44 @@
-# Use an official Python runtime as a parent image
-FROM python:3.12-slim
+FROM python:3.12-alpine
 
-# Set the working directory in the container
+# Avoid interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# If you need a proxy, uncomment these lines:
+# ARG HTTP_PROXY
+# ARG HTTPS_PROXY
+# ENV http_proxy=${HTTP_PROXY}
+# ENV https_proxy=${HTTPS_PROXY}
+
 WORKDIR /CustomerSupportAssistant_RAG_Challenge
 
-# Copy the requirements file into the container
-COPY ./requirements.txt /CustomerSupportAssistant_RAG_Challenge/requirements.txt
+# Switch HTTP → HTTPS in apt sources (optional but helps avoid interception)
+RUN sed -i \
+      -e 's|http://deb.debian.org/|https://deb.debian.org/|g' \
+      /etc/apt/sources.list
 
-# Install any dependencies specified in requirements.txt
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r /CustomerSupportAssistant_RAG_Challenge/requirements.txt
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        apt-transport-https \
+        ca-certificates \
+        build-essential \
+        libpq-dev \
+        libffi-dev \
+        libssl-dev \
+        curl \
+        git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the rest of the application code into the container
-COPY ./src /CustomerSupportAssistant_RAG_Challenge/src
+# Copy and install Python requirements
+COPY requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Set PYTHONPATH
-ENV PYTHONPATH=$PYTHONPATH:/CustomerSupportAssistant_RAG_Challenge/src
+# Copy app code
+COPY src src
 
-# Expose the port FastAPI will run on
+ENV PYTHONPATH=/CustomerSupportAssistant_RAG_Challenge/src
+
 EXPOSE 8085
 
-# Command to run the FastAPI app with Uvicorn
-# CMD ["uvicorn", "src.app.api.app:app", "--host", "0.0.0.0", "--port", "8085","--reload"]
-
-CMD uvicorn src.app.api.app:app --host 0.0.0.0 --port $PORT
+CMD ["uvicorn", "src.backend.api.app:app", "--host", "0.0.0.0", "--port", "8085"]

@@ -1,28 +1,26 @@
 import streamlit as st
+import asyncio
+from src.backend.vectorstore import get_vectorstore_instance
 
-def main():
-    st.title("Simple QA App")
-    question = st.text_input("Enter your question:")
+# Initialize Vectorstore
+# Initialize Vectorstore with caching
+@st.cache_resource  
+def initialize_vectorstore():
+    return get_vectorstore_instance()
 
-    if question:
-        # Replace this with actual QA logic
-        qa_pairs = {
-            "What is Streamlit?": "Streamlit is an open-source Python library that makes it easy to create interactive web apps for data science and machine learning.",
-            "How do I run a Streamlit app?": "Run your app using `streamlit run your_app.py`.",
-            "What is this app?": "This is a very basic QA app built with Streamlit for demonstration purposes."
-        }
-        if question in qa_pairs:
-            answer = qa_pairs[question]
-            st.write(f"Answer: {answer}")
-        else:
-            st.write("I don't know the answer to that question.")
+vectorstore = initialize_vectorstore()
+
+
+async def main():
+    st.title("Customer Support Assistant")
+    
+
+    query = st.text_input("Enter your query:")
+    if st.button("Get Response"):
+        results = await vectorstore.query(query, top_k=5)
+        st.write("Results:", results)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
 
 
-# import streamlit
-# import src.ui.streamlit_app
-
-# if __name__ == "__main__":
-#     src.ui.streamlit_app.main()

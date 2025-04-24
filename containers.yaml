@@ -1,3 +1,6 @@
 docker image pull arizephoenix/phoenix:latest
 
 docker run -d --name phoenix -p 6006:6006 arizephoenix/phoenix:latest
+
+docker build -t customer_support_assistant .
+docker run -p 8085:8085 customer_support_assistant

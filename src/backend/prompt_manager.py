@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
-from src.backend.utilities.code_util import project_root
+from src.backend.util.code_util import project_root
 
 
 from langchain_core.prompts import ChatPromptTemplate

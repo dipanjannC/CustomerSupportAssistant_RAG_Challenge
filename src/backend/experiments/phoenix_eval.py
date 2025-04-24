@@ -2,7 +2,7 @@
 from src.backend.llm import LLMChatbot
 from src.backend.config.logger_config import setup_logging
 
-from src.backend.utilities.code_util import project_root
+from src.backend.util.code_util import project_root
 import os
 
 import pandas as pd

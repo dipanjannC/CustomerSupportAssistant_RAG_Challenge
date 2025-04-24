@@ -1,5 +1,5 @@
 from datasets import load_dataset
-from src.backend.utilities.code_util import project_root
+from src.backend.util.code_util import project_root
 import os
 
 # Load the dataset split
