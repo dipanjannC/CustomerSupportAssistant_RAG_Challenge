@@ -79,7 +79,8 @@ set PYTHONPATH=%cd%
 Run the FastAPI backend to expose the chatbot API:
 
 ```bash
-python src/backend/api/app.py
+# python src/backend/api/app.py
+uvicorn src.backend.api.app:app --host 0.0.0.0 --port 8085
 ```
 
 The API will be available at [http://localhost:8085](http://localhost:8085).

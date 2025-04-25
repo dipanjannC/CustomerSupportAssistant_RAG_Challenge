@@ -41,4 +41,5 @@ ENV PYTHONPATH=/CustomerSupportAssistant_RAG_Challenge/src
 
 EXPOSE 8085
 
+# add -- reload to enable hot reloading
 CMD ["uvicorn", "src.backend.api.app:app", "--host", "0.0.0.0", "--port", "8085"]

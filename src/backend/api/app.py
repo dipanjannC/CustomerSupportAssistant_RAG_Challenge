@@ -42,6 +42,6 @@ async def generate_response(request: QueryRequest) -> dict:
     return {"query": request.query, "response": response, "timestamp": timestamp}
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    uvicorn.run("src.backend.api.app:app", host="0.0.0.0", port=8085,reload=True)
+    # uvicorn.run("src.backend.api.app:app", host="0.0.0.0", port=8085,reload=True,)
