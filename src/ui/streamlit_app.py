@@ -1,6 +1,7 @@
 import streamlit as st
 import asyncio
 from src.backend.vectorstore import get_vectorstore_instance
+from src.backend.rag import RAG_base
 
 # Set page configuration
 st.set_page_config(
@@ -20,9 +21,11 @@ vectorstore = initialize_vectorstore()
 
 async def main():
     
-    query = st.text_input("Enter your query:")
+    query = st.text_input("Enter your query:",placeholder="E.g. How can I reset my password?")
+    
     if st.button("Get Response"):
         results = vectorstore.query(query, top_k=5)
+
         st.write("Results:", results)
 
 if __name__ == "__main__":

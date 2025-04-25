@@ -55,6 +55,7 @@ class LLMChatbot:
             model=model_name,
             temperature=0.3,
             max_retries=2,
+            max_tokens=256,
             api_key=os.getenv("MISTRAL_API_KEY"),
         )
         return llm

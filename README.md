@@ -53,12 +53,14 @@ source venv/bin/activate
 
 ```bash
 pip install --upgrade pip
-pip install -r [requirements.txt](http://_vscodecontentref_/1)
+pip install -r [requirements.txt]
 ```
 
 ### 4. Set the Python Path
 
 To ensure that all modules are imported correctly, set the PYTHONPATH environment variable:
+
+For mac and linux
 
 ```bash
 export PYTHONPATH=$(pwd)
@@ -80,7 +82,7 @@ Run the FastAPI backend to expose the chatbot API:
 python src/backend/api/app.py
 ```
 
-The API will be available at http://localhost:8085.
+The API will be available at [http://localhost:8085](http://localhost:8085).
 
 ### 2. Start the Streamlit UI
 
@@ -90,7 +92,7 @@ Run the Streamlit application for a user-friendly interface:
 streamlit run src/ui/streamlit_app.py 
 ```
 
-The UI will be available at http://localhost:8501.
+The UI will be available at [http://localhost:8501](http://localhost:8501).
 
 ## Important Notes
 
@@ -108,6 +110,7 @@ A Dockerfile is included for containerizing the application. Future work include
 - Implement evaluation metrics for generation and retrieval using RAGAS.
 - Enhance the chatbot with Chain-of-Thought reasoning for better explanations.
 - Expand support for multilingual queries.
+- Add test cases for each functionalities.
 
 ## Limitations
 
@@ -120,5 +123,5 @@ some interesting repositories
 
 - [Awesome LLM Interpretability](https://github.com/JShollaj/awesome-llm-interpretability)
 - [Prompting Guide](https://www.promptingguide.ai/research/llm-reasoning)
-- [System Prompts and Models](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)
+- [System Prompts and Models (hidden system prompts from cursor and more systems)](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)
 - [Camel AI](https://github.com/camel-ai/camel/)

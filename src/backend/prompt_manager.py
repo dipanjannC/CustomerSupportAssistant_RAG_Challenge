@@ -15,9 +15,9 @@ class CustomerAssistantPrompt:
 
     # Roles and Uses for each prompt:
 
-    The system prompt defines role, tone, edge‑case rules;
-    the retriever prompt instructs how to use fetched context;
-    the user prompt structures Question→Answer.
+    The system prompt defines role, tone, edge‑case rules.
+    the retriever prompt instructs how to use fetched context.
+    the user prompt structures how to Answer the Question.
     """
 
     def __init__(self) -> None:
